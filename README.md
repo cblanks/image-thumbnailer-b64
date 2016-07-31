@@ -1,7 +1,9 @@
 # image-thumbnailer-b64
 
 Convert an image into base64 thumbnail data for display in HTML, e.g. 
+```
 <img src="data:image/png;base64,'base64 string goes here'">
+```
 
 ## Setup
 Install [ImageMagick](http://www.imagemagick.org/script/binary-releases.php) with the following options:
