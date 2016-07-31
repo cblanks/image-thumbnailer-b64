@@ -1,0 +1,19 @@
+{
+  "name": "image-thumbnailer-b64",
+  "version": "1.0.0",
+  "description": "Using 'convert', create a thumbnail in base64 for display in a web page.",
+  "main": "image2b64.js",
+  "scripts": {
+    "test": "node image2b64 CNN_International_logo_2014.png"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cblanks/image-thumbnailer-b64.git"
+  },
+  "author": "chris.blanks@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cblanks/image-thumbnailer-b64/issues"
+  },
+  "homepage": "https://github.com/cblanks/image-thumbnailer-b64#readme"
+}
