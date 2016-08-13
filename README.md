@@ -17,7 +17,7 @@ Install [node.js](https://nodejs.org/en/download/).
 ## Run
 Optionally set your desired tumbnail size in [image2b64.js](https://github.com/cblanks/image-thumbnailer-b64/blob/master/image2b64.js):
 ```javascript
-var thumbSize = 56, // pixels
+var thumbSize = 56; // pixels
 ```
 
 ```
