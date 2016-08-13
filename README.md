@@ -1,8 +1,10 @@
 # image-thumbnailer-b64
 
-Convert an image into base64 thumbnail data for display in HTML, e.g. 
+Convert an image into base64, PNG-format thumbnail data for display in HTML, e.g. here is a string encoding a little [red dot](https://en.wikipedia.org/wiki/Data_URI_scheme#HTML):
 ```html
-<img src="data:image/png;base64,'base64 string goes here'">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA
+AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
+9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />
 ```
 
 ## Setup
