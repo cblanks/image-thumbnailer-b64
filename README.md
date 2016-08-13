@@ -23,6 +23,3 @@ var thumbSize = 56, // pixels
 ```
 $ node image2b64.js /path/to/your/image.ext
 ```
-
-## Use
-To quickly test using this output, just copy the output file contents into the Google Chrome address bar, to see an auto-generated `<img>` tag.

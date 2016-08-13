@@ -12,32 +12,88 @@ var child = require('child_process'),
 	process = require('process');
 
 //- - - - - - - - - - - - - - - - - - - - - - - - - - -
-//  v a r i a b l e s
+//  o p t i o n s
 //- - - - - - - - - - - - - - - - - - - - - - - - - - -
-var thumbSize = 56, // pixels
-	outputFile = 'b64str.txt';
+var thumbSize = 56; // pixels
+
+//- - - - - - - - - - - - - - - - - - - - - - - - - - -
+//  f u n c t i o n s
+//- - - - - - - - - - - - - - - - - - - - - - - - - - -
+function validateImagePath() {
+
+	var imagePath = null;
+	
+	try {
+		imagePath = path.resolve(process.argv[2]);
+		
+	} catch(err) {
+		console.log(err);
+		process.exit();
+	}
+
+	fs.stat(imagePath, function(err, stats) {
+		if(err) {
+			console.log(err);
+			process.exit();
+		
+		} else {
+			console.log('Image stats:');
+			console.log(JSON.stringify(stats, null, 2));
+		}
+	});
+	
+	return imagePath;
+}
+
+
+function makeTempDir() {
+
+	var tempDir = path.resolve('temp');
+
+	fs.stat(tempDir, function(err, stats) {
+		if(err) {
+			try{
+				fs.mkdir(tempDir);
+			} catch(e) {
+				console.log(e);
+				process.exit();
+			}
+		}
+	});
+	
+	return tempDir;
+}
 
 //- - - - - - - - - - - - - - - - - - - - - - - - - - -
 //  m a i n
 //- - - - - - - - - - - - - - - - - - - - - - - - - - -
-try {
-	var imagePath = path.resolve(process.argv[2]);
-	
-} catch(e) {
-	console.log(e);
-	process.exit();
-}
-
-var pathParts = path.parse(imagePath),
-	thumbPath = path.resolve(
-		pathParts.name+'_'+thumbSize.toString()+'.png'
+var imagePath = validateImagePath(),
+	pathParts = path.parse(imagePath),
+	thumbName = pathParts.name+'_'+thumbSize.toString(),
+	thumbPath = path.join(
+		makeTempDir(),
+		thumbName+'.png'
 	),
-	cmd = 'convert '+imagePath+' -thumbnail '+thumbSize+' '+thumbPath;
- 
+	cmd = 'convert '+imagePath+' -thumbnail '+thumbSize+' '+thumbPath,
+	outputFile = path.resolve(thumbName+'.html');
+	
 child.exec(cmd, function(error, stdout, stderr) {
 	
 	fs.readFile(thumbPath, {encoding: 'base64'}, function(err, base64string) {
 		
-		fs.writeFileSync(outputFile, '<img src=data:image/png;base64,'+base64string+' alt="'+pathParts.name+'"/>');
+		fs.writeFile(
+			outputFile, 
+			'<html>\n\t<img src="data:image/png;base64,'+base64string+'" alt="'+pathParts.name+'"/>\n</html>'
+			
+		, function(err) {
+			
+			if(err) {
+				console.log(err);
+			
+			} else {
+				console.log('Open you new image data file in your default web browser with:');
+				console.log('start '+thumbName+'.html');
+			}
+		});
 	});
 });
